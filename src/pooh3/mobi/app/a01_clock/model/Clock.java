@@ -7,9 +7,13 @@ public class Clock {
     public final ShortHand shortHand;
     public final LongHand longHand;
 
-    Clock(ShortHand shortHand, LongHand longHand) {
+    private Clock(ShortHand shortHand, LongHand longHand) {
         this.shortHand = checkNotNull(shortHand);
         this.longHand = checkNotNull(longHand);
+    }
+
+    public static Clock build(ShortHand shortHand, LongHand longHand) {
+        return new Clock(shortHand, longHand);
     }
 
     @Override

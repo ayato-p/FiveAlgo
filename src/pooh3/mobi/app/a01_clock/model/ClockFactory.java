@@ -18,9 +18,9 @@ public class ClockFactory {
         checkArgument(pair.length == 2,
                 "check format:" + hourAndMinute);
 
-        return new Clock(
-                new ShortHand(Integer.parseInt(pair[HOUR_INDEX])),
-                new LongHand(Integer.parseInt(pair[MINUTE_INDEX]))
+        return Clock.build(
+                ShortHand.of(Integer.parseInt(pair[HOUR_INDEX])),
+                LongHand.of(Integer.parseInt(pair[MINUTE_INDEX]))
         );
     }
 }

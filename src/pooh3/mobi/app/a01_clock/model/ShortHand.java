@@ -5,7 +5,8 @@ import static pooh3.mobi.Preconditions.checkNotNull;
 
 public class ShortHand {
     public final int hour;
-    public ShortHand(int hour) {
+
+    private  ShortHand(int hour) {
 
         checkArgument(hour >= 0,
                 "hour must not be negative:" + hour);
@@ -13,6 +14,10 @@ public class ShortHand {
                 "hour must less than 24:" + hour);
 
         this.hour = hour % 12;
+    }
+
+    public static ShortHand of(int hour) {
+        return new ShortHand(hour);
     }
 
     public Degree degree(LongHand longHand) {

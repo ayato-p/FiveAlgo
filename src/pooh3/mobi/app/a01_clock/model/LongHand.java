@@ -4,7 +4,7 @@ import static pooh3.mobi.Preconditions.checkArgument;
 
 public class LongHand {
     public final int minute;
-    public LongHand(int minute) {
+    private LongHand(int minute) {
 
         checkArgument(minute >= 0,
                 "minute must not be negative:" + minute);
@@ -12,6 +12,10 @@ public class LongHand {
                 "minute must less than 60:" + minute);
 
         this.minute = minute;
+    }
+
+    public static LongHand of(int minute) {
+        return new LongHand(minute);
     }
 
     public Degree degree() {

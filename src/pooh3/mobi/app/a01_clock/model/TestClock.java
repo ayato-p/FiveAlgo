@@ -53,7 +53,7 @@ public class TestClock {
         for (Fixture longHandFixture : longHandFixtures) {
 
             int degree =
-                    new LongHand(longHandFixture.aTime).degree().val;
+                    LongHand.of(longHandFixture.aTime).degree().val;
 
             System.out.println(
                     "(hand-degree (long-hand " + longHandFixture.aTime
@@ -70,8 +70,8 @@ public class TestClock {
         for (Fixture shortHandFixture : shortHandFixtures) {
 
             int degree =
-                    new ShortHand(shortHandFixture.aTime)
-                            .degree(new LongHand(0)).val;
+                    ShortHand.of(shortHandFixture.aTime)
+                            .degree(LongHand.of(0)).val;
 
             System.out.println(
                     "(hand-degree (short-hand " + shortHandFixture.aTime
@@ -88,7 +88,7 @@ public class TestClock {
         for (Fixture shortHandFixture : shortHandMinFixtures) {
 
             Degree minDegree =
-                    new ShortHand(shortHandFixture.aTime).degree(new LongHand(0))
+                    ShortHand.of(shortHandFixture.aTime).degree(LongHand.of(0))
                             .minusMin(Degree.of(0));
 
             System.out.println(
