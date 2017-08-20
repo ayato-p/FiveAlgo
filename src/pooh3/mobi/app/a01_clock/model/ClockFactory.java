@@ -16,7 +16,7 @@ public class ClockFactory {
                         "hourAndMinute require not null.").split(DIV);
 
         checkArgument(pair.length == 2,
-                "check format:" + hourAndMinute);
+                "check format:" + hourAndMinute + "  \n eg. \"10:10\"");
 
         return Clock.build(
                 ShortHand.of(Integer.parseInt(pair[HOUR_INDEX])),
