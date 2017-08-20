@@ -13,7 +13,7 @@ public class GetClockHandsDegree {
     }
 
     public Degree execute(String clockStr) {
-        return degreeCalcService.degreeBetweenTwoHands(
+        return degreeCalcService.degreeBetweenClockTwoHands(
                 ClockFactory.createByStr(clockStr));
     }
 }
