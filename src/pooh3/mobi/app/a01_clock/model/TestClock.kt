@@ -107,12 +107,13 @@ class TestClock {
 
     @Throws(Exception::class)
     fun hour10minute10_answer115degree() {
-        val c = "10:10"
-        GetClockHandsDegree(DegreeCalcService()).execute(c).let {
-            println("(degree-min (clock-degree (clock-str \"$c\")) -> ${it.value} == 115")
+        with("10:10") {
+            GetClockHandsDegree(DegreeCalcService()).execute(this).let {
+                println("(degree-min (clock-degree (clock-str \"$this\")) -> ${it.value} == 115")
 
-            Assert.that(it.value == 115,
-                    "$c actual:${it.value} expected:" + 115)
+                Assert.that(it.value == 115,
+                        "$this actual:${it.value} expected:" + 115)
+            }
         }
     }
 
