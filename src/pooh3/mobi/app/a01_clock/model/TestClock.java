@@ -41,8 +41,8 @@ public class TestClock {
     public void test() throws Exception {
         setUp();
         aLongHandTest_minute_to_degree();
-        aShortHandTest_minute_to_degree();
-        aShortHandTest_minute_to_min_degree();
+        aShortHandTest_hour_to_degree();
+        aShortHandTest_hour_to_min_degree();
         hour10minute10_answer115degree();
     }
 
@@ -66,7 +66,7 @@ public class TestClock {
         }
     }
 
-    public void aShortHandTest_minute_to_degree() throws Exception {
+    public void aShortHandTest_hour_to_degree() throws Exception {
         for (Fixture shortHandFixture : shortHandFixtures) {
 
             int degree =
@@ -84,7 +84,7 @@ public class TestClock {
         }
     }
 
-    public void aShortHandTest_minute_to_min_degree() throws Exception {
+    public void aShortHandTest_hour_to_min_degree() throws Exception {
         for (Fixture shortHandFixture : shortHandMinFixtures) {
 
             Degree minDegree =
