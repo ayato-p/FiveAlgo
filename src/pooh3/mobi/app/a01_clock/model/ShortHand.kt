@@ -1,33 +1,26 @@
 package pooh3.mobi.app.a01_clock.model
 
-import pooh3.mobi.Preconditions.checkArgument
-import pooh3.mobi.Preconditions.checkNotNull
+import pooh3.mobi.orThrow
 
-class ShortHand private constructor(hour: Int) {
+class ShortHand(hour: Int) {
     val hour: Int
-
     init {
-
-        checkArgument(hour >= 0,
-                "hour must not be negative:" + hour)
-        checkArgument(hour < 24,
-                "hour must less than 24:" + hour)
-
+        (hour >= 0).orThrow("hour must not be negative:" + hour)
+        (hour < 24).orThrow("hour must less than 24:" + hour)
         this.hour = hour % 12
     }
-
-    fun degree(longHand: LongHand): Degree {
-        return Degree.of(360 / 12 * this.hour + additionalDegree(checkNotNull(longHand).minute))
-    }
-
-    private fun additionalDegree(minute: Int): Int {
-        return if (minute == 0) 0 else 30 / (60 / minute)
-    }
-
-    companion object {
-
-        fun of(hour: Int): ShortHand {
-            return ShortHand(hour)
-        }
-    }
 }
+
+fun ShortHand.degree(longHand: LongHand): Degree {
+    return (360 / 12 * this.hour)
+            .degree
+            .plus(longHand.let {
+                if (it.minute == 0)
+                    0.degree
+                else
+                    (30 / (60 / it.minute)).degree
+            })
+}
+
+val Int.shortHand: ShortHand
+    get() = ShortHand(this)

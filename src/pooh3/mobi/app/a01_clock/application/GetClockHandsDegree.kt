@@ -1,15 +1,16 @@
 package pooh3.mobi.app.a01_clock.application
 
 import pooh3.mobi.app.a01_clock.model.*
+import pooh3.mobi.checkNotNull
 
-import pooh3.mobi.Preconditions.checkNotNull
 
 class GetClockHandsDegree(degreeCalcService: DegreeCalcService) {
 
-    private val degreeCalcService: DegreeCalcService = checkNotNull(degreeCalcService)
+    private val degreeCalcService: DegreeCalcService = degreeCalcService.checkNotNull
 
     fun execute(clockStr: String): Degree {
-        return degreeCalcService.degreeBetweenClockTwoHands(
-                ClockFactory.createByStr(clockStr))
+        return degreeCalcService
+                .degreeBetweenClockTwoHands(
+                        ClockFactory.createByStr(clockStr))
     }
 }

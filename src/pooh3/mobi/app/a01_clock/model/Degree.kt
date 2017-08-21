@@ -1,28 +1,36 @@
 package pooh3.mobi.app.a01_clock.model
 
-import pooh3.mobi.Preconditions.checkNotNull
+import pooh3.mobi.checkNotNull
 
-class Degree private constructor(val value: Int) {
+
+class Degree(val value: Int) {
+
+    operator fun plus(degree: Degree): Degree {
+        return Degree(this.value + degree.checkNotNull.value)
+    }
 
     operator fun minus(degree: Degree): Degree {
-        return Degree.of(this.value - checkNotNull(degree).value)
+        return Degree(this.value - degree.checkNotNull.value)
     }
 
-    fun minusAbs(degree: Degree): Degree {
-        return Degree.of(Math.abs(
-                minus(checkNotNull(degree)).value))
+    override fun toString(): String {
+        return "[$value degree]"
     }
 
-    fun minusMin(degree: Degree): Degree {
-        return checkNotNull(minusAbs(degree)).let {
-            if (it.value <= 180) it else Degree.of(360).minusMin(it)
-        }
-    }
+}
 
-    companion object {
+fun Degree.minusAbs(degree: Degree): Degree {
+    return (this - degree.checkNotNull).absDegree
+}
 
-        fun of(degreeInt: Int): Degree {
-            return Degree(degreeInt)
-        }
+fun Degree.minusMin(degree: Degree): Degree {
+    return minusAbs(degree.checkNotNull).let {
+        return@let if (it.value <= 180) it else 360.degree.minus(it)
     }
 }
+
+val Int.degree: Degree
+    get() = Degree(this)
+
+val Degree.absDegree: Degree
+    get() = Math.abs(this.value).degree

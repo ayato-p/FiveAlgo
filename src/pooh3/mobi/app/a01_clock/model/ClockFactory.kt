@@ -1,7 +1,7 @@
 package pooh3.mobi.app.a01_clock.model
 
-import pooh3.mobi.Preconditions.checkArgument
-import pooh3.mobi.Preconditions.checkNotNull
+import pooh3.mobi.orThrow
+import pooh3.mobi.checkNotNull
 
 object ClockFactory {
 
@@ -10,17 +10,20 @@ object ClockFactory {
     private val MINUTE_INDEX = 1
 
     fun createByStr(hourAndMinute: String): Clock {
-        checkNotNull(hourAndMinute,
-                "hourAndMinute require not null.")
+        hourAndMinute
+                .checkNotNull("hourAndMinute require not null.")
                 .split(DIV).dropLastWhile(String::isEmpty).toTypedArray()
-                .let{
-                    checkArgument(it.size == 2,
+                .let {
+                    (it.size == 2).orThrow(
                             "check format:$hourAndMinute  \n eg. \"10:10\"")
 
                     return Clock.build(
-                            ShortHand.of(Integer.parseInt(it[HOUR_INDEX])),
-                            LongHand.of(Integer.parseInt(it[MINUTE_INDEX]))
+                            it[HOUR_INDEX].parseInt.shortHand,
+                            it[MINUTE_INDEX].parseInt.longHand
                     )
                 }
     }
 }
+
+val String.parseInt: Int
+    get() = Integer.parseInt(this)
