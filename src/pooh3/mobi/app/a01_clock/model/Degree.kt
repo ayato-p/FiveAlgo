@@ -25,7 +25,7 @@ fun Degree.minusAbs(degree: Degree): Degree {
 }
 
 fun Degree.minusMin(degree: Degree): Degree {
-    return minusAbs(degree.checkNotNull).let {
+    return this.minusAbs(degree.checkNotNull).let {
         return@let if (it.value <= 180) it else 360.degree.minus(it)
     }
 }
