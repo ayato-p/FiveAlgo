@@ -40,16 +40,15 @@ class TestClock {
     @Throws(Exception::class)
     fun test() {
         setUp()
-        aLongHandTest_minute_to_degree()
-        aShortHandTest_hour_to_degree()
-        aShortHandTest_hour_to_min_degree()
-        hour10minute10_answer115degree()
+        aLongHandTest_minute_to_degree
+        aShortHandTest_hour_to_degree
+        aShortHandTest_hour_to_min_degree
+        hour10minute10_answer115degree
     }
 
     fun setUp() {}
 
-    @Throws(Exception::class)
-    fun aLongHandTest_minute_to_degree() {
+    val aLongHandTest_minute_to_degree =
         longHandFixtures.forEach { longHandFixture ->
             LongHand.of(longHandFixture.aTime)
                     .degree()
@@ -64,60 +63,53 @@ class TestClock {
                                         "expected:${longHandFixture.aDegree}")
                     }
         }
-    }
 
-    @Throws(Exception::class)
-    fun aShortHandTest_hour_to_degree() {
-        shortHandFixtures.forEach { shortHandFixture ->
-            ShortHand.of(shortHandFixture.aTime)
-                    .degree(LongHand.of(0))
-                    .value
-                    .apply {
-                        println("(hand-degree (short-hand " +
-                            "${shortHandFixture.aTime})) " +
-                            "-> $this == ${shortHandFixture.aDegree}") }
-                    .apply {
-                        Assert.that(this == shortHandFixture.aDegree,
-                            "${shortHandFixture.aTime} " +
-                                    "actual:$this  " +
-                                    "expected:${shortHandFixture.aDegree}")
-                    }
+    val aShortHandTest_hour_to_degree =
+                shortHandFixtures.forEach { shortHandFixture ->
+                    ShortHand.of(shortHandFixture.aTime)
+                            .degree(LongHand.of(0))
+                            .value
+                            .apply {
+                                println("(hand-degree (short-hand " +
+                                    "${shortHandFixture.aTime})) " +
+                                    "-> $this == ${shortHandFixture.aDegree}") }
+                            .apply {
+                                Assert.that(this == shortHandFixture.aDegree,
+                                    "${shortHandFixture.aTime} " +
+                                            "actual:$this  " +
+                                            "expected:${shortHandFixture.aDegree}")
+                            }
 
 
-        }
-    }
-
-    @Throws(Exception::class)
-    fun aShortHandTest_hour_to_min_degree() {
-        shortHandMinFixtures.forEach { shortHandFixture ->
-            ShortHand.of(shortHandFixture.aTime)
-                    .degree(LongHand.of(0))
-                    .minusMin(Degree.of(0))
-                    .apply {
-                        println("(degree-min (hand-degree (short-hand " +
-                                        "${shortHandFixture.aTime})) -> ${this.value}"
-                                        + " == ${shortHandFixture.aDegree}") }
-                    .apply {
-                        Assert.that(this.value == shortHandFixture.aDegree,
-                        "${shortHandFixture.aTime}" +
-                                "actual:${this.value} " +
-                                "expected:${shortHandFixture.aDegree} ")
-                    }
-        }
-    }
-
-    @Throws(Exception::class)
-    fun hour10minute10_answer115degree() {
-        "10:10".let { clockStr ->
-                    Pair(clockStr, GetClockHandsDegree(DegreeCalcService()).execute(clockStr)) }
-                .apply {
-                    println("(degree-min (clock-degree (clock-str " +
-                            "\"${this.first}\")) -> ${this.second.value} == 115") }
-                .apply {
-                    Assert.that(this.second.value == 115,
-                    "${this.first} actual:${this.second.value} expected:" + 115)
                 }
-    }
+
+    val aShortHandTest_hour_to_min_degree =
+            shortHandMinFixtures.forEach { shortHandFixture ->
+                ShortHand.of(shortHandFixture.aTime)
+                            .degree(LongHand.of(0))
+                            .minusMin(Degree.of(0))
+                            .apply {
+                                println("(degree-min (hand-degree (short-hand " +
+                                                "${shortHandFixture.aTime})) -> ${this.value}"
+                                                + " == ${shortHandFixture.aDegree}") }
+                            .apply {
+                                Assert.that(this.value == shortHandFixture.aDegree,
+                                "${shortHandFixture.aTime}" +
+                                        "actual:${this.value} " +
+                                        "expected:${shortHandFixture.aDegree} ")
+                            }
+                }
+
+    val hour10minute10_answer115degree =
+                "10:10".let { clockStr ->
+                            Pair(clockStr, GetClockHandsDegree(DegreeCalcService()).execute(clockStr)) }
+                        .apply {
+                            println("(degree-min (clock-degree (clock-str " +
+                                    "\"${this.first}\")) -> ${this.second.value} == 115") }
+                        .apply {
+                            Assert.that(this.second.value == 115,
+                            "${this.first} actual:${this.second.value} expected:" + 115)
+                        }
 
     internal class Fixture(val aTime: Int, val aDegree: Int)
 }
