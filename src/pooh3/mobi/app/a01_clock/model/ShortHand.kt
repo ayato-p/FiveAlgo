@@ -12,8 +12,7 @@ class ShortHand(hour: Int) {
 }
 
 fun ShortHand.degree(longHand: LongHand): Degree {
-    return (360 / 12 * this.hour)
-            .degree
+    return (360 / 12 * this.hour).degree
             .plus(longHand.let {
                 if (it.minute == 0)
                     0.degree

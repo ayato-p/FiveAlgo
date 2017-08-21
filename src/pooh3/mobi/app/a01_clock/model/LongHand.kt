@@ -10,7 +10,7 @@ class LongHand (val minute: Int) {
 }
 
 fun LongHand.degree(): Degree {
-    return Degree(360 / 60 * this.minute)
+    return (360 / 60 * this.minute).degree
 }
 
 val Int.longHand: LongHand
