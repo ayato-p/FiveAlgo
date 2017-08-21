@@ -55,11 +55,9 @@ val aShortHandTest_hour_to_degree:
         (shortHandFixtures: ArrayList<Fixture>) -> Unit =
         { list ->
             list.forEach { shortHandFixture ->
-                shortHandFixture.aTime
-                        .shortHand
-                        .degree(0.longHand)
-                        .value
-                        .apply {
+                shortHandFixture.aTime.shortHand
+                        .degree(0.longHand).value
+                        .io {
                             // side effect
                             println("(hand-degree (short-hand " +
                                     "${shortHandFixture.aTime})) " +
@@ -78,9 +76,8 @@ val aShortHandTest_hour_to_min_degree:
         { list ->
             list.forEach { shortHandFixture ->
                 shortHandFixture.aTime.shortHand
-                        .degree(0.longHand)
-                        .minusMin(Degree(0))
-                        .apply {
+                        .degree(0.longHand).minusMin(0.degree)
+                        .io {
                             // side effect
                             println("(degree-min (hand-degree (short-hand " +
                                     "${shortHandFixture.aTime})) " +
@@ -98,11 +95,9 @@ val aLongHandTest_minute_to_degree:
         (longHandFixtures : ArrayList<Fixture>) -> Unit =
         { list ->
             list.forEach { fixture ->
-                fixture.aTime
-                        .longHand
-                        .degree()
-                        .value
-                        .apply {
+                fixture.aTime.longHand
+                        .degree().value
+                        .io {
                             // side effect
                             println("(hand-degree \n" +
                                     "    (long-hand ${fixture.aTime})) " +
@@ -123,7 +118,7 @@ val hour10minute10_answer115degree:
             "10:10"
                     .let {
                         Pair(it, GetClockHandsDegree(DegreeCalcService()).execute(it)) }
-                    .apply {
+                    .io {
                         // side effect
                         println("(degree-min (clock-degree (clock-str " +
                                 "\"${this.first}\")) " +
@@ -139,3 +134,4 @@ val hour10minute10_answer115degree:
 class Fixture(val aTime: Int, val aDegree: Int)
 
 private inline fun <T> T.then(block: T.() -> Unit) = block()
+private inline fun <T> T.io(block: T.() -> Unit): T { block(); return this }

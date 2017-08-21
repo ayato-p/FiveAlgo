@@ -19,6 +19,7 @@ class Degree(val value: Int) {
 
 }
 
+
 fun Degree.minusAbs(degree: Degree): Degree {
     return (this - degree.checkNotNull).absDegree
 }
