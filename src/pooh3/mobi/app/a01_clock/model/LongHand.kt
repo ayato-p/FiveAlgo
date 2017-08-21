@@ -1,11 +1,11 @@
 package pooh3.mobi.app.a01_clock.model
 
-import pooh3.mobi.orThrow
+import pooh3.mobi.elseThrow
 
 class LongHand (val minute: Int) {
     init {
-        (minute >= 0).orThrow("minute must not be negative:" + minute)
-        (minute < 60).orThrow("minute must less than 60:" + minute)
+        (minute >= 0).elseThrow("minute must not be negative:" + minute)
+        (minute < 60).elseThrow("minute must less than 60:" + minute)
     }
 }
 

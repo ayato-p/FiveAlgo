@@ -8,7 +8,7 @@ fun <T> T?.checkNotNull(msg: String?): T {
 }
 
 @JvmOverloads
-fun Boolean.orThrow(msg: String? = null) {
+fun Boolean.elseThrow(msg: String? = null) {
     if (!this)
         throw IllegalArgumentException(
                 msg ?: "argument condition is not required")

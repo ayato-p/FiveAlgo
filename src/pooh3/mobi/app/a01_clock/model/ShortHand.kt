@@ -1,12 +1,12 @@
 package pooh3.mobi.app.a01_clock.model
 
-import pooh3.mobi.orThrow
+import pooh3.mobi.elseThrow
 
 class ShortHand(hour: Int) {
     val hour: Int
     init {
-        (hour >= 0).orThrow("hour must not be negative:" + hour)
-        (hour < 24).orThrow("hour must less than 24:" + hour)
+        (hour >= 0).elseThrow("hour must not be negative:" + hour)
+        (hour < 24).elseThrow("hour must less than 24:" + hour)
         this.hour = hour % 12
     }
 }
