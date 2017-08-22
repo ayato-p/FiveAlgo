@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FiveAlgo.iml" filepath="$PROJECT_DIR$/FiveAlgo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/clojure_five_algo/clojure_five_algo.iml" filepath="$PROJECT_DIR$/clojure_five_algo/clojure_five_algo.iml" />
     </modules>
   </component>
 </project>
