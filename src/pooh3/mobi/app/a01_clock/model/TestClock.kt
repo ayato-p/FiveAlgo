@@ -57,15 +57,15 @@ val aShortHandTest_hour_to_degree:
             list.forEach { shortHandFixture ->
                 shortHandFixture.aTime.shortHand
                         .degree(0.longHand).value
-                        .io {
+                        .also { degree ->
                             // side effect
                             println("(hand-degree (short-hand " +
                                     "${shortHandFixture.aTime})) " +
-                                    "\n> $this") }
-                        .then {
-                            Assert.that(this == shortHandFixture.aDegree,
+                                    "\n> $degree") }
+                        .then { degree ->
+                            Assert.that(degree == shortHandFixture.aDegree,
                                     "${shortHandFixture.aTime} " +
-                                            "actual:$this  " +
+                                            "actual:$degree  " +
                                             "expected:${shortHandFixture.aDegree}")
                         }
             }
@@ -77,15 +77,15 @@ val aShortHandTest_hour_to_min_degree:
             list.forEach { shortHandFixture ->
                 shortHandFixture.aTime.shortHand
                         .degree(0.longHand).minusMin(0.degree)
-                        .io {
+                        .also { degree ->
                             // side effect
                             println("(degree-min (hand-degree (short-hand " +
                                     "${shortHandFixture.aTime})) " +
-                                    "\n> ${this.value}") }
-                        .then {
-                            Assert.that(this.value == shortHandFixture.aDegree,
+                                    "\n> ${degree.value}") }
+                        .then { degree ->
+                            Assert.that(degree.value == shortHandFixture.aDegree,
                                     "${shortHandFixture.aTime}" +
-                                            "actual:${this.value} " +
+                                            "actual:${degree.value} " +
                                             "expected:${shortHandFixture.aDegree} ")
                         }
             }
@@ -97,15 +97,15 @@ val aLongHandTest_minute_to_degree:
             list.forEach { fixture ->
                 fixture.aTime.longHand
                         .degree().value
-                        .io {
+                        .also {
                             // side effect
                             println("(hand-degree \n" +
                                     "    (long-hand ${fixture.aTime})) " +
-                                    "\n> $this") }
-                        .then {
-                            Assert.that(this == fixture.aDegree,
+                                    "\n> $it") }
+                        .then { degree ->
+                            Assert.that(degree == fixture.aDegree,
                                     "${fixture.aTime} " +
-                                            "actual:$this " +
+                                            "actual:$degree " +
                                             "expected:${fixture.aDegree}")
                         }
             }
@@ -117,15 +117,15 @@ val hour10minute10_answer115degree:
         {
             "10:10"
                     .let {
-                        Pair(it, GetClockHandsDegree(DegreeCalcService()).execute(it)) }
-                    .io {
+                        it to GetClockHandsDegree(DegreeCalcService()).execute(it) }
+                    .also { (clockStr, degree) ->
                         // side effect
                         println("(degree-min (clock-degree (clock-str " +
-                                "\"${this.first}\")) " +
-                                "\n> ${this.second.value}") }
-                    .then {
-                        Assert.that(this.second.value == 115,
-                                "${this.first} actual:${this.second.value} expected:" + 115)
+                                "\"$clockStr\")) " +
+                                "\n> ${degree.value}") }
+                    .then { (clockStr, degree) ->
+                        Assert.that(degree.value == 115,
+                                "$clockStr actual:${degree.value} expected:" + 115)
                     }
         }
 
@@ -133,5 +133,4 @@ val hour10minute10_answer115degree:
 
 class Fixture(val aTime: Int, val aDegree: Int)
 
-private inline fun <T> T.then(block: T.() -> Unit) = block()
-private inline fun <T> T.io(block: T.() -> Unit): T { block(); return this }
+private inline fun <T> T.then(block: (T) -> Unit) { block(this)}
