@@ -10,20 +10,21 @@ object ClockFactory {
     private val MINUTE_INDEX = 1
 
     fun createByStr(hourAndMinute: String): Clock {
-        hourAndMinute
+        return hourAndMinute
                 .checkNotNull("hourAndMinute require not null.")
                 .split(DIV).dropLastWhile(String::isEmpty).toTypedArray()
-                .let {
+                .also {
                     (it.size == 2).elseThrow(
-                            "check format:$hourAndMinute  \n eg. \"10:10\"")
-
-                    return Clock.build(
-                            it[HOUR_INDEX].parseInt.shortHand,
-                            it[MINUTE_INDEX].parseInt.longHand
-                    )
+                        "check format:$hourAndMinute  \n eg. \"10:10\"")}
+                .map {
+                    Clock.build(
+                        it[HOUR_INDEX].parseInt.shortHand,
+                        it[MINUTE_INDEX].parseInt.longHand)
                 }
     }
 }
 
 val String.parseInt: Int
     get() = Integer.parseInt(this)
+
+private inline fun <T, R> T.map(block: (T) -> R): R = block(this)

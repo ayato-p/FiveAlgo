@@ -9,9 +9,10 @@ class LongHand (val minute: Int) {
     }
 }
 
-fun LongHand.degree(): Degree {
-    return (360 / 60 * this.minute).degree
-}
+// Shortとは違う感じになるが、引数の要不要が明示的になって良いかも？
+val LongHand.degree: Degree
+    get() = (360 / 60 * this.minute).degree
+
 
 val Int.longHand: LongHand
     get() = LongHand(this)
