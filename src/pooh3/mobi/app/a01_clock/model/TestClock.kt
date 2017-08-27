@@ -58,9 +58,9 @@ private val aShortHandTest_hour_to_degree:
                     sf.shortHand
                             .degree(0.longHand).int
                             .println {
-                                        "(hand-degree \n" +
-                                        "    (short-hand ${sf.aTimeInt})) \n" +
-                                        "> $it"
+                                "(hand-degree\n" +
+                                "    (short-hand ${sf.aTimeInt}))\n" +
+                                "> $it"
                             }
                             .then {
                                 Assert.that(it == sf.aDegreeInt,
@@ -80,9 +80,9 @@ private val aShortHandTest_hour_to_min_degree:
                             .degree(0.longHand)
                             .minusMin(0.degree)
                             .println {
-                                        "(degree-min (hand-degree \n" +
-                                        "                (short-hand ${sf.aTimeInt})) \n" +
-                                        "> ${it.int}"
+                                "(degree-min (hand-degree\n" +
+                                "                (short-hand ${sf.aTimeInt}))\n" +
+                                "> ${it.int}"
                             }
                             .then {
                                 Assert.that(it.int == sf.aDegreeInt,
@@ -100,9 +100,9 @@ private val aLongHandTest_minute_to_degree:
                 f ->
                     f.longHand.degree.int
                             .println {
-                                        "(hand-degree \n" +
-                                        "    (long-hand ${f.aTimeInt})) \n" +
-                                        "> $it"
+                                "(hand-degree\n" +
+                                "    (long-hand ${f.aTimeInt}))\n" +
+                                "> $it"
                             }
                             .then { degreeInt ->
                                 Assert.that(degreeInt == f.aDegreeInt,
@@ -122,7 +122,7 @@ private val hour10minute10_answer115degree:
                     .println {
                         (clockStr, degree) ->
                                 "(degree-min (clock-degree \n" +
-                                "                (clock-str \"$clockStr\")) \n" +
+                                "                (clock-str \"$clockStr\"))\n" +
                                 "\n> ${degree.int}"
                     }
                     .then { (clockStr, degree) ->
