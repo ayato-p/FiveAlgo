@@ -1,4 +1,4 @@
-(ns clojure-five-algo.core)
+(ns clojure_five_algo.core)
 
 (defn foo
   "I don't do a whole lot."
