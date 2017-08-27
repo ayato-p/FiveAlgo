@@ -57,11 +57,11 @@ private val aShortHandTest_hour_to_degree:
                 sf ->
                     sf.shortHand
                             .degree(0.longHand).int
-                            .also {
-                                // side effect
-                                println("(hand-degree \n" +
+                            .println {
+                                        "(hand-degree \n" +
                                         "    (short-hand ${sf.aTimeInt})) \n" +
-                                        "> $it") }
+                                        "> $it"
+                            }
                             .then {
                                 Assert.that(it == sf.aDegreeInt,
                                         "${sf.aTimeInt} " +
@@ -79,11 +79,11 @@ private val aShortHandTest_hour_to_min_degree:
                     sf.shortHand
                             .degree(0.longHand)
                             .minusMin(0.degree)
-                            .also {
-                                // side effect
-                                println("(degree-min (hand-degree \n" +
+                            .println {
+                                        "(degree-min (hand-degree \n" +
                                         "                (short-hand ${sf.aTimeInt})) \n" +
-                                        "> ${it.int}") }
+                                        "> ${it.int}"
+                            }
                             .then {
                                 Assert.that(it.int == sf.aDegreeInt,
                                         "${sf.aTimeInt}" +
@@ -99,12 +99,11 @@ private val aLongHandTest_minute_to_degree:
             list.forEach {
                 f ->
                     f.longHand.degree.int
-                            .also {
-                                // side effect
-                                println(
+                            .println {
                                         "(hand-degree \n" +
                                         "    (long-hand ${f.aTimeInt})) \n" +
-                                        "> $it") }
+                                        "> $it"
+                            }
                             .then { degreeInt ->
                                 Assert.that(degreeInt == f.aDegreeInt,
                                         "${f.aTimeInt} " +
@@ -120,11 +119,12 @@ private val hour10minute10_answer115degree:
         {
             ("10:10" to GetClockHandsDegree(DegreeCalcService()))
                     .map { (clockStr, getDegree) -> clockStr to getDegree.execute(clockStr) }
-                    .also { (clockStr, degree) ->
-                        // side effect
-                        println("(degree-min (clock-degree \n" +
+                    .println {
+                        (clockStr, degree) ->
+                                "(degree-min (clock-degree \n" +
                                 "                (clock-str \"$clockStr\")) \n" +
-                                "\n> ${degree.int}") }
+                                "\n> ${degree.int}"
+                    }
                     .then { (clockStr, degree) ->
                         Assert.that(degree.int == 115,
                                 "$clockStr actual:${degree.int} expected:" + 115)
@@ -136,6 +136,8 @@ private val hour10minute10_answer115degree:
 private class Fixture(val aTimeInt: Int, val aDegreeInt: Int)
 private val Fixture.longHand: LongHand get() = this.aTimeInt.longHand
 private val Fixture.shortHand: ShortHand get() = this.aTimeInt.shortHand
+// extension functions fot test
+private inline fun <T> T.println(block: (T) -> String) : T { println(block(this)); return this;}
 private inline fun <T, R> T.map(block: (T) -> R): R = block(this)
 private inline fun <T> T.then(block: (T) -> Unit) { block(this)}
 
